@@ -1,3 +1,5 @@
+from sort import ordenar
+
 def sin_repetidos(a, b):
     lista = []
     cont = 0
@@ -32,13 +34,32 @@ def sin_ceros(a, b):
     tupla = (cont,lista)
     return tupla
 
+def ascendentes(a, b):
+    lista = []
+    cont = 0
+    for i in range(a,b+1):     
+        if ordenar(i):
+            tupla = sin_repetidos(i,i)
+            if tupla[0] > 0:
+                cont+=1
+                lista.append(i)
+    
+    tupla = (cont,lista)
+    return tupla
 
-switch = int(input("Digite el numero correspondiente al metodo que desea usar:\n + sin_repetidos (1) \n + sin_ceros (2)\n >"))
-if switch == 1:
+def conjuntos_sin_consecutivos(a, b, k):
+    pass
+
+switch = int(input("Digite el numero correspondiente al metodo que desea usar:\n + sin_repetidos (1) \n + sin_ceros (2) \n + ascendentes (3) \n + conjuntos_sin_consecutivos (4) \n >"))
+if 1 <= switch <= 4:
     a = int(input("Ingrese a: "))
     b = int(input("Ingrese b: "))
-    print("El resultado es: ",sin_repetidos(a,b))
-elif switch == 2:
-    a = int(input("Ingrese a: "))
-    b = int(input("Ingrese b: "))
-    print("El resultado es: ",sin_ceros(a,b))
+    if switch == 1:     
+        print("El resultado es: ",sin_repetidos(a,b))
+    elif switch == 2:
+        print("El resultado es: ",sin_ceros(a,b))
+    elif switch == 3:
+        print("El resultado es: ",ascendentes(a,b))
+    elif switch == 4:
+        k = int(input("Ingrese k: "))
+        print("El resultado es: ",conjuntos_sin_consecutivos(a, b, k))
