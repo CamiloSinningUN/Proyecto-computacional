@@ -1,20 +1,29 @@
-from sort import ordenar
 
 def sin_repetidos(a, b):
+    #Inicializar variables
     lista = []
     cont = 0
+
+    #Se generan lo numeros desde A a B
     for i in range(a,b+1):
-        cont1 = 1
+
+        cont1 = 1 #Posición en la que vamos del numero (numero de digito de izquierda a derecha)
         sw = True
-        i = str(i)
+        i = str(i) # Se convierte el numero a string
+
+        #Se recorre el numero dígito a dígito
         for j in i:
-            if(j in i[cont1:]):
+            if(j in i[cont1:]): #Si el dígito esta contenido en una posición luego de su posición en el numero (No sé si se entiende, escribe en el chat si es claro)
                 sw = False
-                continue
+                continue # es como el break de java
             cont1+=1
+
+        # Si un dígito no se encontro repetido en el numero entonces se incluye en la lista y se suma el contador   
         if sw:
             lista.append(i)
             cont+=1
+
+    # Se devuelve la tupla       
     tupla = (cont,lista)
     return tupla
 
@@ -34,16 +43,22 @@ def sin_ceros(a, b):
     tupla = (cont,lista)
     return tupla
 
-def ascendentes(a, b):
+def ascendentes(a,b):
     lista = []
     cont = 0
-    for i in range(a,b+1):     
-        if ordenar(i):
-            tupla = sin_repetidos(i,i)
-            if tupla[0] > 0:
-                cont+=1
-                lista.append(i)
-    
+    for i in range(a,b+1):  
+        cont1 = 1  
+        i = str(i)
+        sw = True
+        for j in i:
+            if cont1 < len(i):
+                if int(j) >= int(i[cont1]) :
+                    sw = False
+                    continue
+            cont1+=1
+        if sw:
+            lista.append(int(i))
+            cont+=1
     tupla = (cont,lista)
     return tupla
 
