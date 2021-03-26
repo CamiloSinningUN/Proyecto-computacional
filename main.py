@@ -1,80 +1,132 @@
 
 def sin_repetidos(a, b):
-    #Inicializar variables
     lista = []
     cont = 0
 
-    #Se generan lo numeros desde A a B
-    for i in range(a,b+1):
-
-        cont1 = 1 #Posición en la que vamos del numero (numero de digito de izquierda a derecha)
+    # Se recorren numeros entre a y b
+    for i in range(a, b+1):
+        cont1 = 1  # Contador dígito
         sw = True
-        i = str(i) # Se convierte el numero a string
+        i = str(i)
 
-        #Se recorre el numero dígito a dígito
+        # Se recorre el numero dígito a dígito
         for j in i:
-            if(j in i[cont1:]): #Si el dígito esta contenido en una posición luego de su posición en el numero (No sé si se entiende, escribe en el chat si es claro)
+            # Verifica si el dígito j esta contenido en i (Sin tener en cuenta j)
+            if(j in i[cont1:]):
                 sw = False
-                continue # es como el break de java
-            cont1+=1
+                continue
+            cont1 += 1
 
-        # Si un dígito no se encontro repetido en el numero entonces se incluye en la lista y se suma el contador   
+        # Si sw es verdadero significa que el numero no tiene dígitos repetidos
         if sw:
             lista.append(i)
-            cont+=1
+            cont += 1
 
-    # Se devuelve la tupla       
-    tupla = (cont,lista)
+    # Se devuelve la tupla requerida
+    tupla = (cont, lista)
     return tupla
+
 
 def sin_ceros(a, b):
     lista = []
     cont = 0
-    for i in range(a,b+1):   
+
+    # Se recorren numeros entre a y b
+    for i in range(a, b+1):
         sw = True
         i = str(i)
-        for j in i:
-            if("0" in i):
-                sw = False
-                continue
+        # Verifica si numero contiene el numero cero
+        if("0" in i):
+            sw = False
+            continue
+
+        # Si sw es verdadero significa que el numero no contiene al cero
         if sw:
             lista.append(i)
-            cont+=1
-    tupla = (cont,lista)
+            cont += 1
+
+    tupla = (cont, lista)
     return tupla
 
-def ascendentes(a,b):
+
+def ascendentes(a, b):
     lista = []
     cont = 0
-    for i in range(a,b+1):  
-        cont1 = 1  
+
+    # Se recorren numeros entre a y b
+    for i in range(a, b+1):
+        cont1 = 1
         i = str(i)
         sw = True
+
+        # Se recorre el numero dígito a dígito
         for j in i:
+
+            # Se valida que cont1 esta en el rango de i
             if cont1 < len(i):
-                if int(j) >= int(i[cont1]) :
+                # Si el dígito j es mayor que j+1 entonces no se cumple la condición
+                if int(j) >= int(i[cont1]):
                     sw = False
                     continue
-            cont1+=1
+            cont1 += 1
+
+        # Si sw es verdadero significa que el numero es ascendente
         if sw:
             lista.append(int(i))
-            cont+=1
-    tupla = (cont,lista)
+            cont += 1
+    tupla = (cont, lista)
     return tupla
 
+
 def conjuntos_sin_consecutivos(a, b, k):
-    pass
+    arr = list(range(a, b+1))
+    
+    #Vector temporal que va guardando cada combinación una por una
+    data = [0]*k; 
+
+    # Halla todas las combinaciones
+    combinacion(arr, data, 0, len(arr)-1, 0, k)
+
+    print()
+    print(cont)
+     
+def combinacion(arr, data, start, end, index, k):   
+    global cont
+    global lista
+    if (index == k): 
+      if no_tiene_consecutivos(data):
+        cont+=1
+        lista.append(data[:])
+      return
+
+    # Remplaza el indice con todos los posibles elementos.
+    i = start
+    while(i <= end and end - i + 1 >= k - index): 
+        data[index] = arr[i]
+        combinacion(arr, data, i + 1, end, index + 1, k)
+        i += 1
+
+def no_tiene_consecutivos(ar):
+  for i in ar:
+    for j in ar:
+      if i==j-1 or i==j+1:
+        return False
+  return True
 
 switch = int(input("Digite el numero correspondiente al metodo que desea usar:\n + sin_repetidos (1) \n + sin_ceros (2) \n + ascendentes (3) \n + conjuntos_sin_consecutivos (4) \n >"))
 if 1 <= switch <= 4:
-    a = int(input("Ingrese a: "))
-    b = int(input("Ingrese b: "))
-    if switch == 1:     
-        print("El resultado es: ",sin_repetidos(a,b))
+    a = int(input(" Ingrese a: "))
+    b = int(input(" Ingrese b: "))
+    r = "El resultado es: "
+    if switch == 1:
+        print(r, sin_repetidos(a, b))
     elif switch == 2:
-        print("El resultado es: ",sin_ceros(a,b))
+        print(r, sin_ceros(a, b))
     elif switch == 3:
-        print("El resultado es: ",ascendentes(a,b))
+        print(r, ascendentes(a, b))
     elif switch == 4:
-        k = int(input("Ingrese k: "))
-        print("El resultado es: ",conjuntos_sin_consecutivos(a, b, k))
+        cont = 0
+        lista = []
+        k = int(input(" Ingrese k: "))
+        conjuntos_sin_consecutivos(a, b, k)
+        print(r, (cont,lista))
