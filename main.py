@@ -41,7 +41,7 @@ def sin_ceros(a, b):
             continue
 
         # Si sw es verdadero significa que el numero no contiene al cero
-        if sw:
+        if sw == True:
             lista.append(i)
             cont += 1
 
@@ -63,11 +63,10 @@ def ascendentes(a, b):
         for j in i:
 
             # Se valida que cont1 esta en el rango de i
-            if cont1 < len(i):
+            if cont1 < len(i) and int(j) >= int(i[cont1]):
                 # Si el dígito j es mayor que j+1 entonces no se cumple la condición
-                if int(j) >= int(i[cont1]):
-                    sw = False
-                    continue
+                sw = False
+                continue
             cont1 += 1
 
         # Si sw es verdadero significa que el numero es ascendente
