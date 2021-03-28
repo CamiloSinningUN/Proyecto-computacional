@@ -79,22 +79,18 @@ def ascendentes(a, b):
 
 def conjuntos_sin_consecutivos(a, b, k):
     arr = list(range(a, b+1))
-    
+    lista = []
     #Vector temporal que va guardando cada combinación una por una
     data = [0]*k; 
 
     # Halla todas las combinaciones
-    combinacion(arr, data, 0, len(arr)-1, 0, k)
-
-    print()
-    print(cont)
+    combinacion(arr, data, 0, len(arr)-1, 0, k, lista)
+    tupla = (len(lista),lista)
+    return tupla
      
-def combinacion(arr, data, start, end, index, k):   
-    global cont
-    global lista
+def combinacion(arr, data, start, end, index, k, lista):   
     if (index == k): 
       if no_tiene_consecutivos(data):
-        cont+=1
         lista.append(data[:])
       return
 
@@ -102,7 +98,7 @@ def combinacion(arr, data, start, end, index, k):
     i = start
     while(i <= end and end - i + 1 >= k - index): 
         data[index] = arr[i]
-        combinacion(arr, data, i + 1, end, index + 1, k)
+        combinacion(arr, data, i + 1, end, index + 1, k, lista)
         i += 1
 
 def no_tiene_consecutivos(ar):
@@ -124,8 +120,5 @@ if 1 <= switch <= 4:
     elif switch == 3:
         print(r, ascendentes(a, b))
     elif switch == 4:
-        cont = 0
-        lista = []
-        k = int(input(" Ingrese k: "))
-        conjuntos_sin_consecutivos(a, b, k)
-        print(r, (cont,lista))
+        k = int(input(" Ingrese k: "))    
+        print(r, conjuntos_sin_consecutivos(a, b, k))
